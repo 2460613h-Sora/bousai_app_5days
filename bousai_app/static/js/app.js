@@ -17,7 +17,7 @@ function initializeShelterMap() {
     return;
   }
 
-  const map = L.map(mapElement).setView([35.3390, 139.4903], 12);
+  const map = L.map(mapElement).setView([40.8222, 140.7474], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
     referrerPolicy: 'strict-origin-when-cross-origin'

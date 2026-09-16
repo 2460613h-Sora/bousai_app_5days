@@ -1,17 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="home-content">
-    <section class="dashboard-card map-card" aria-labelledby="map-title">
-        <h2 class="section-heading" id="map-title">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-            避難所マップ
-        </h2>
-        <div id="shelterMap" class="shelter-map" aria-label="避難所マップ"></div>
-        <p class="map-fallback" id="mapFallback" hidden>地図を読み込めませんでした。避難所検索から一覧を確認できます。</p>
+<div class="citizen-home">
+    <section class="citizen-home-frame">
+        <div class="citizen-home-grid">
+            <section class="map-area" aria-labelledby="map-title">
+                <h3 id="map-title" class="visually-hidden">青森市の避難所マップ</h3>
+                <div id="shelterMap" class="shelter-map" aria-label="青森市の避難所マップ"></div>
+                <p class="map-caption">エリア（地図・一覧など）<br>市の避難場所位置・災害状況マップ<br>記号でどこの災害が起きている程度を色で表示<br>通常時は避難所場所表示・お散歩ポイントがもらえる場所表示</p>
+                <p class="map-fallback" id="mapFallback" hidden>地図を読み込めませんでした。避難所検索から一覧を確認できます。</p>
+            </section>
+
+            <aside class="home-actions" aria-label="市民向けメニュー">
+                {% if report_app_url %}
+                <a class="home-action" href="{{ report_app_url }}" target="_blank" rel="noopener noreferrer">災害情報報告ボタン</a>
+                {% else %}
+                <span class="home-action is-disabled" aria-disabled="true">災害情報報告ボタン（URL未設定）</span>
+                {% endif %}
+                <a class="home-action" href="{{ url_for('shelter_search') }}">避難所検索画面</a>
+                {% if location_app_url %}
+                <a class="home-action" href="{{ location_app_url }}" target="_blank" rel="noopener noreferrer">位置情報許可設定</a>
+                {% else %}
+                <span class="home-action is-disabled" aria-disabled="true">位置情報許可設定（URL未設定）</span>
+                {% endif %}
+
+                <div class="normal-mode">通常時使用</div>
+                <div class="home-info-grid">
+                    <a class="home-info-box" href="{{ url_for('board') }}">実施中・実施予定のお散歩イベント</a>
+                    <div class="home-info-box">お散歩ポイント数<br><strong>0</strong></div>
+                </div>
+            </aside>
+        </div>
+
+        <a class="admin-login" href="{{ url_for('login') }}">管理者ログイン</a>
     </section>
 
-    <section class="dashboard-card weather-card" aria-labelledby="weather-title">
+    <section class="weather-summary" aria-labelledby="weather-title">
         <div class="weather-heading-row">
             <h2 class="section-heading" id="weather-title">
                 <i class="fa-solid fa-cloud-sun" aria-hidden="true"></i>

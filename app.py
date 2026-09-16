@@ -23,6 +23,10 @@ ADMIN_CREDENTIALS = {
     'admin': '123'
 }
 
+# 市民ホームから遷移する別アプリのURL（環境変数で設定）
+REPORT_APP_URL = os.getenv('REPORT_APP_URL', '')
+LOCATION_APP_URL = os.getenv('LOCATION_APP_URL', '')
+
 # ────────────────────────────────
 # 気象警報・注意報設定
 PREFECTURE_CODE = "020000"  # 青森県
@@ -265,7 +269,12 @@ def get_weather_warnings():
 @app.route('/')
 def index():
     resident_notices = [i for i in instructions if i.get('target') == '住民']
-    return render_template('index.html', resident_notices=resident_notices)
+    return render_template(
+        'index.html',
+        resident_notices=resident_notices,
+        report_app_url=REPORT_APP_URL,
+        location_app_url=LOCATION_APP_URL
+    )
 
 # ログインページ
 @app.route('/login', methods=['GET', 'POST'])

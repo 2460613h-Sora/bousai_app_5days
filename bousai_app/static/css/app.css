@@ -73,21 +73,52 @@ main {
   min-height: calc(100vh - 70px);
 }
 
-.home-content {
-  width: min(100% - 32px, 900px);
-  margin: 32px auto 56px;
+.citizen-home {
+  width: min(100% - 32px, 1180px);
+  margin: 18px auto 48px;
 }
 
-.dashboard-card {
-  padding: 26px 28px 30px;
-  background: var(--surface);
-  border: 1px solid rgba(224, 232, 242, 0.8);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
+.citizen-home-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #0d1831;
 }
 
-.dashboard-card + .dashboard-card {
-  margin-top: 30px;
+.citizen-home-title span {
+  font-size: 2rem;
+}
+
+.citizen-home-title h1 {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  line-height: 1.2;
+}
+
+.citizen-home-frame {
+  position: relative;
+  padding: 18px 24px 48px;
+  background: #fff;
+  border: 2px solid #252525;
+}
+
+.citizen-home-frame > h2 {
+  margin: 0 0 14px;
+  color: #252525;
+  font-size: 1.25rem;
+}
+
+.citizen-home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.9fr);
+  gap: 22px;
+}
+
+.map-area {
+  position: relative;
+  min-width: 0;
+  min-height: 450px;
+  border: 1px solid #777;
 }
 
 .section-heading {
@@ -106,16 +137,104 @@ main {
 }
 
 .shelter-map {
-  min-height: 365px;
+  height: 100%;
+  min-height: 450px;
   overflow: hidden;
   background: #d8e9ed;
-  border-radius: 10px;
+}
+
+.map-caption {
+  position: absolute;
+  inset: 45% 20px auto;
+  margin: 0;
+  color: #666;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  text-align: center;
+  pointer-events: none;
 }
 
 .map-fallback {
   margin: 12px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-action,
+.normal-mode,
+.home-info-box {
+  display: block;
+  padding: 11px 12px;
+  color: #555;
+  background: #fff;
+  border: 1px solid #aaa;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.home-action:hover,
+.home-action:focus-visible {
+  color: #173f76;
+  background: #edf5fc;
+}
+
+.home-action.is-disabled {
+  color: #888;
+  background: #f3f3f3;
+  cursor: not-allowed;
+}
+
+.normal-mode {
+  margin-top: 55px;
+  color: #173f76;
+  background: #dcecf9;
+  text-align: center;
+}
+
+.home-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.home-info-box {
+  min-height: 128px;
+  display: flex;
+  align-items: center;
+}
+
+.home-info-box strong {
+  margin-left: 6px;
+  color: var(--blue);
+  font-size: 1.3rem;
+}
+
+.admin-login {
+  position: absolute;
+  bottom: 10px;
+  left: 24px;
+  width: 290px;
+  padding: 3px 12px;
+  color: #111;
+  background: #fff900;
+  border: 1px solid #999;
+  text-align: center;
+  text-decoration: none;
+}
+
+.weather-summary {
+  margin-top: 26px;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid rgba(224, 232, 242, 0.8);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
 .weather-heading-row {
@@ -215,18 +334,18 @@ main {
     gap: 8px;
   }
 
-  .home-content {
+  .citizen-home {
     width: min(100% - 20px, 900px);
     margin-top: 20px;
   }
 
-  .dashboard-card {
-    padding: 20px 16px 22px;
-    border-radius: 11px;
+  .citizen-home-frame,
+  .weather-summary {
+    padding: 16px 12px 50px;
   }
 
-  .dashboard-card + .dashboard-card {
-    margin-top: 20px;
+  .citizen-home-grid {
+    grid-template-columns: 1fr;
   }
 
   .section-heading {
@@ -234,7 +353,20 @@ main {
   }
 
   .shelter-map {
-    min-height: 300px;
+    min-height: 330px;
+  }
+
+  .map-area {
+    min-height: 330px;
+  }
+
+  .normal-mode {
+    margin-top: 20px;
+  }
+
+  .admin-login {
+    left: 12px;
+    width: calc(100% - 24px);
   }
 
   .weather-heading-row {

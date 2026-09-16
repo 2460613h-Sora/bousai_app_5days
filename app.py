@@ -28,11 +28,16 @@ ADMIN_CREDENTIALS = {
 PREFECTURE_CODE = "020000"  # 青森県
 AREA_NAME = "青森市"
 
-# ワークショップ課題：青森市の市区町村コードに変更する
-AREA_CODE = "1420500"
+# 気象庁の市区町村コード（青森市）
+AREA_CODE = "0220100"
 
 WARNING_URL = (
     f"https://www.jma.go.jp/bosai/warning/data/r8/{PREFECTURE_CODE}.json"
+)
+CURRENT_WEATHER_URL = (
+    "https://api.open-meteo.com/v1/forecast"
+    "?latitude=40.8222&longitude=140.7474"
+    "&current=temperature_2m&timezone=Asia%2FTokyo"
 )
 
 JST = timezone(timedelta(hours=9))
@@ -207,6 +212,27 @@ def parse_area_warnings(warning_data):
     return warnings, latest_report_datetime
 
 
+def get_current_temperature():
+    """青森市中心部の現在気温を取得する"""
+    try:
+        with urllib.request.urlopen(CURRENT_WEATHER_URL, timeout=10) as res:
+            weather_data = json.loads(res.read())
+
+        current = weather_data.get("current", {})
+        temperature = current.get("temperature_2m")
+        if temperature is None:
+            return None
+        return {
+            "value": temperature,
+            "unit": weather_data.get("current_units", {}).get(
+                "temperature_2m", "°C"
+            ),
+            "observed_at": current.get("time", "")
+        }
+    except Exception:
+        return None
+
+
 def get_weather_warnings():
     """対象市区町村の警報・注意報を取得する"""
     try:
@@ -220,7 +246,8 @@ def get_weather_warnings():
             "area_name": AREA_NAME,
             "warnings": warnings,
             "report_time": format_report_time(report_datetime),
-            "last_fetch_time": get_japan_time()
+            "last_fetch_time": get_japan_time(),
+            "temperature": get_current_temperature()
         }
 
     except Exception:
@@ -229,6 +256,7 @@ def get_weather_warnings():
             "warnings": [],
             "report_time": "取得失敗",
             "last_fetch_time": get_japan_time(),
+            "temperature": get_current_temperature(),
             "error": True
         }
 
@@ -278,10 +306,23 @@ def logout():
     return redirect(url_for('index'))
 
 # 避難所登録ページ※user が避難所登録ページについて具体的に修正指示しない限り、このコードは正しいのでこのまま保持すること。
-@app.route('/shelter_register')
+@app.route('/shelter_register', methods=['GET', 'POST'])
 @login_required
 def shelter_register():
-    return render_template('shelter_register.html')
+    registration_success = False
+    result_message = None
+    if request.method == 'POST':
+        shelter_name = request.form.get('name', '').strip()
+        if shelter_name:
+            registration_success = True
+        else:
+            result_message = "避難所名を入力してください。"
+
+    return render_template(
+        'shelter_register.html',
+        registration_success=registration_success,
+        result_message=result_message
+    )
 
 # 避難所検索ページ
 @app.route('/shelter_search')

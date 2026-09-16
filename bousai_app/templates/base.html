@@ -4,31 +4,31 @@
   <meta charset="utf-8">
   <title>{% block title %}防災アプリ{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-  <!-- ヘッダー -->
-  <h1>防災アプリ</h1>
-
-  <!-- ナビゲーション -->
-  <nav>
-    <a href="/">ホーム</a> |
-    <a href="/shelter_search">避難所検索</a> |
-    <a href="/shelter_register">避難所登録</a> |
-    <a href="/board">指示・発信ボード</a>
-    ｜
-    {% if session.logged_in %}
-      ログイン中{% if session.username %}（{{ session.username }}）{% endif %}
-      <a href="/logout">ログアウト</a>
-    {% else %}
-      未ログイン
-      <a href="/login">ログイン</a>
-    {% endif %}
-  </nav>
-  <hr>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{{ url_for('index') }}">防災アプリ</a>
+    </div>
+    <nav class="site-navigation" id="site-navigation" aria-label="メインメニュー">
+      <a href="{{ url_for('index') }}">ホーム</a>
+      <a href="{{ url_for('shelter_search') }}">避難所検索</a>
+      <a href="{{ url_for('shelter_register') }}">避難所登録</a>
+      <a href="{{ url_for('board') }}">指示・発信ボード</a>
+      {% if session.logged_in %}
+        <span>ログイン中{% if session.username %}（{{ session.username }}）{% endif %}</span>
+        <a href="{{ url_for('logout') }}">ログアウト</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">ログイン</a>
+      {% endif %}
+    </nav>
+  </header>
 
   <main>
-    <!-- ここに子テンプレートの content が入る -->
     {% block content %}{% endblock %}
   </main>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

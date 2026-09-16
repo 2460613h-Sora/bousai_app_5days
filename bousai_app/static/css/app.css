@@ -1,0 +1,253 @@
+:root {
+  --blue: #2456a6;
+  --blue-dark: #17448d;
+  --green: #2b9b55;
+  --ink: #25364d;
+  --muted: #687789;
+  --surface: #ffffff;
+  --panel: #f7f9fc;
+  --page: #f4f7fb;
+  --line: #e7edf4;
+  --shadow: 0 8px 24px rgba(33, 63, 104, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--page);
+  font-family: "Noto Sans JP", "Yu Gothic", sans-serif;
+  line-height: 1.6;
+}
+
+.site-header {
+  position: relative;
+  z-index: 1000;
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 2px 10px rgba(23, 68, 141, 0.18);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 40px, 1380px);
+  min-height: 70px;
+  margin: 0 auto;
+}
+
+.brand {
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.site-navigation {
+  display: flex;
+  width: min(100% - 40px, 1380px);
+  margin: 0 auto;
+  padding: 0 0 16px;
+  gap: 8px 22px;
+  flex-wrap: wrap;
+}
+
+.site-navigation a,
+.site-navigation span {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.site-navigation a:hover,
+.site-navigation a:focus-visible {
+  text-decoration: underline;
+}
+
+main {
+  min-height: calc(100vh - 70px);
+}
+
+.home-content {
+  width: min(100% - 32px, 900px);
+  margin: 32px auto 56px;
+}
+
+.dashboard-card {
+  padding: 26px 28px 30px;
+  background: var(--surface);
+  border: 1px solid rgba(224, 232, 242, 0.8);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.dashboard-card + .dashboard-card {
+  margin-top: 30px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: var(--blue);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.section-heading i {
+  font-size: 1.25rem;
+}
+
+.shelter-map {
+  min-height: 365px;
+  overflow: hidden;
+  background: #d8e9ed;
+  border-radius: 10px;
+}
+
+.map-fallback {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.weather-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.auto-refresh {
+  flex: 0 0 auto;
+  padding-top: 4px;
+  color: var(--green);
+  font-size: 0.92rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.weather-panel {
+  padding: 20px 22px;
+  background: var(--panel);
+  border-radius: 10px;
+}
+
+.weather-location,
+.current-temperature,
+.weather-status,
+.weather-time {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.weather-location {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.current-temperature {
+  margin: 0 0 16px;
+  color: var(--blue);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.weather-status {
+  margin: 0 0 16px;
+  color: var(--green);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.weather-status.is-warning {
+  color: #c66a18;
+}
+
+.weather-status i {
+  font-size: 1.1rem;
+}
+
+.weather-warning-list {
+  margin: 0 0 18px;
+  padding-left: 1.4rem;
+}
+
+.weather-time {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.loading-message,
+.error-message {
+  margin: 0;
+  color: var(--muted);
+}
+
+.leaflet-control-zoom a {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    width: min(100% - 24px, 1380px);
+    min-height: 62px;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .site-navigation {
+    width: min(100% - 24px, 1380px);
+    padding-bottom: 14px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .home-content {
+    width: min(100% - 20px, 900px);
+    margin-top: 20px;
+  }
+
+  .dashboard-card {
+    padding: 20px 16px 22px;
+    border-radius: 11px;
+  }
+
+  .dashboard-card + .dashboard-card {
+    margin-top: 20px;
+  }
+
+  .section-heading {
+    font-size: 1.1rem;
+  }
+
+  .shelter-map {
+    min-height: 300px;
+  }
+
+  .weather-heading-row {
+    display: block;
+  }
+
+  .auto-refresh {
+    display: block;
+    margin: -8px 0 16px;
+    font-size: 0.82rem;
+  }
+
+  .weather-panel {
+    padding: 16px;
+  }
+}
